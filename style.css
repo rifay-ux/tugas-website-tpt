@@ -1,0 +1,511 @@
+/* ========================================
+   RESET CSS - Menghapus default style browser
+   ======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ========================================
+   BODY - Style untuk keseluruhan halaman
+   ======================================== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Background gradient ungu yang aesthetic */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh; /* Tinggi minimal 100% viewport */
+    display: flex; /* Menggunakan flexbox */
+    justify-content: center; /* Konten di tengah horizontal */
+    align-items: center; /* Konten di tengah vertikal */
+    padding: 20px;
+}
+
+/* ========================================
+   CONTAINER - Kotak putih utama
+   ======================================== */
+.container {
+    background: rgba(255, 255, 255, 0.95); /* Putih semi-transparan */
+    border-radius: 20px; /* Sudut melengkung */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); /* Bayangan untuk efek depth */
+    max-width: 900px; /* Lebar maksimal */
+    width: 100%; /* Lebar 100% dari parent */
+    overflow: hidden; /* Sembunyikan konten yang keluar */
+}
+
+/* ========================================
+   HEADER - Bagian judul atas
+   ======================================== */
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px 20px; /* Padding lebih kecil untuk mobile */
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 1.8em; /* Ukuran font lebih kecil untuk mobile */
+    margin-bottom: 10px;
+    line-height: 1.3; /* Jarak antar baris */
+}
+
+.header p {
+    opacity: 0.9; /* Sedikit transparan */
+    font-size: 1em;
+}
+
+/* ========================================
+   CONTENT - Area konten utama
+   ======================================== */
+.content {
+    padding: 30px 20px; /* Padding lebih kecil untuk mobile */
+}
+
+/* ========================================
+   FORM SECTIONS - Halaman-halaman form
+   ======================================== */
+.form-section {
+    display: none; /* Semua halaman disembunyikan */
+}
+
+/* Halaman yang aktif akan ditampilkan */
+.form-section.active {
+    display: block;
+    animation: fadeIn 0.5s ease; /* Animasi fade in */
+}
+
+/* Animasi fade in saat halaman muncul */
+@keyframes fadeIn {
+    from {
+        opacity: 0; /* Mulai transparan */
+        transform: translateY(20px); /* Mulai dari bawah */
+    }
+    to {
+        opacity: 1; /* Jadi tidak transparan */
+        transform: translateY(0); /* Kembali ke posisi normal */
+    }
+}
+
+/* ========================================
+   FORM GROUP - Wrapper untuk setiap input
+   ======================================== */
+.form-group {
+    margin-bottom: 20px; /* Jarak bawah lebih kecil untuk mobile */
+}
+
+/* Label untuk setiap input */
+label {
+    display: block; /* Tampil penuh horizontal */
+    margin-bottom: 8px;
+    color: #333; /* Warna abu gelap */
+    font-weight: 600; /* Tebal */
+    font-size: 0.95em; /* Ukuran font sedikit lebih kecil */
+}
+
+/* ========================================
+   INPUT FIELDS - Style untuk input
+   ======================================== */
+input[type="text"],
+input[type="password"],
+input[type="date"],
+select {
+    width: 100%; /* Lebar penuh */
+    padding: 14px 15px; /* Padding lebih besar untuk touch screen */
+    border: 2px solid #e0e0e0; /* Border abu */
+    border-radius: 10px; /* Sudut melengkung */
+    font-size: 16px; /* Minimal 16px agar iOS tidak zoom in */
+    transition: all 0.3s ease; /* Animasi smooth */
+    -webkit-appearance: none; /* Hilangkan style default iOS */
+    appearance: none;
+}
+
+/* Style saat input di-focus (diklik) */
+input:focus,
+select:focus {
+    outline: none; /* Hilangkan outline default */
+    border-color: #667eea; /* Border jadi ungu */
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); /* Efek glow */
+}
+
+/* ========================================
+   FILE UPLOAD - Area upload file
+   ======================================== */
+.file-upload {
+    border: 2px dashed #667eea; /* Border putus-putus ungu */
+    border-radius: 10px;
+    padding: 25px 15px; /* Padding lebih kecil untuk mobile */
+    text-align: center;
+    cursor: pointer; /* Cursor jadi pointer */
+    transition: all 0.3s ease;
+}
+
+/* Style saat hover (atau tap di mobile) */
+.file-upload:hover,
+.file-upload:active {
+    background: rgba(102, 126, 234, 0.05); /* Background ungu tipis */
+}
+
+/* Sembunyikan input file asli */
+.file-upload input[type="file"] {
+    display: none;
+}
+
+/* Text label untuk upload */
+.file-upload-label {
+    color: #667eea;
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+/* ========================================
+   TIME SLOTS - Grid untuk slot waktu
+   ======================================== */
+.time-slots {
+    display: grid; /* Menggunakan CSS Grid */
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Kolom lebih kecil untuk mobile */
+    gap: 8px; /* Jarak antar item lebih kecil */
+    margin-top: 10px;
+}
+
+/* Style untuk setiap slot waktu */
+.time-slot {
+    padding: 12px 8px; /* Padding lebih pas untuk mobile */
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9em; /* Font lebih kecil */
+    font-weight: 600;
+    /* Prevent text selection saat tap */
+    -webkit-user-select: none;
+    user-select: none;
+    /* Smooth tap di iOS */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Style saat hover/tap pada slot waktu */
+.time-slot:hover,
+.time-slot:active {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+/* Style untuk slot waktu yang dipilih */
+.time-slot.selected {
+    background: #667eea; /* Background ungu solid */
+    color: white;
+    border-color: #667eea;
+    transform: scale(1.05); /* Sedikit membesar */
+}
+
+/* Style untuk slot waktu yang sudah dibooking */
+.time-slot.booked {
+    background: #e0e0e0; /* Background abu */
+    cursor: not-allowed; /* Cursor jadi not-allowed */
+    opacity: 0.6; /* Lebih transparan */
+    position: relative;
+}
+
+/* Tambahkan icon gembok untuk slot yang dibooking */
+.time-slot.booked::after {
+    content: '🔒'; /* Emoji gembok */
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7em;
+}
+
+/* ========================================
+   BUTTONS - Style untuk tombol
+   ======================================== */
+button {
+    width: 100%;
+    padding: 16px; /* Padding lebih besar untuk touch */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.05em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    /* Smooth tap di iOS */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Efek saat hover/tap pada button */
+button:hover,
+button:active {
+    transform: translateY(-2px); /* Terangkat sedikit */
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); /* Bayangan lebih besar */
+}
+
+/* Style untuk link button (button teks) */
+.link-button {
+    background: none; /* Tanpa background */
+    color: #667eea;
+    text-decoration: underline; /* Garis bawah */
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 0.95em;
+}
+
+/* Link button tidak ada efek hover transform */
+.link-button:hover,
+.link-button:active {
+    transform: none;
+    box-shadow: none;
+}
+
+/* ========================================
+   BOOKING CARD - Card sukses booking
+   ======================================== */
+.booking-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px 20px; /* Padding lebih kecil untuk mobile */
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.booking-card h2 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+/* Grid untuk info booking */
+.booking-info {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 kolom di mobile */
+    gap: 12px;
+    margin-top: 15px;
+}
+
+/* Style untuk setiap item info */
+.info-item {
+    background: rgba(255, 255, 255, 0.2); /* Putih semi-transparan */
+    padding: 15px;
+    border-radius: 10px;
+}
+
+/* Label info (teks kecil) */
+.info-label {
+    font-size: 0.85em;
+    opacity: 0.9;
+}
+
+/* Value info (teks besar) */
+.info-value {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 5px;
+    word-break: break-word; /* Break long text */
+}
+
+/* ========================================
+   ALERTS - Notifikasi error/success
+   ======================================== */
+.alert {
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+}
+
+/* Alert error (merah) */
+.alert-error {
+    background: #fee; /* Merah muda */
+    color: #c33; /* Merah gelap */
+    border: 1px solid #fcc;
+}
+
+/* Alert success (hijau) */
+.alert-success {
+    background: #efe; /* Hijau muda */
+    color: #3c3; /* Hijau gelap */
+    border: 1px solid #cfc;
+}
+
+/* ========================================
+   FIELD CARDS - Card pilihan lapangan
+   ======================================== */
+.field-icon {
+    font-size: 2.5em; /* Icon lebih kecil untuk mobile */
+    margin-bottom: 8px;
+}
+
+/* Grid untuk card lapangan */
+.fields-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 kolom */
+    gap: 12px;
+    margin-top: 15px;
+}
+
+/* Style untuk setiap card lapangan */
+.field-card {
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 15px 10px; /* Padding lebih kecil untuk mobile */
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Prevent text selection */
+    -webkit-user-select: none;
+    user-select: none;
+    /* Smooth tap */
+    -webkit-tap-highlight-color: transparent;
+}
+
+.field-card h3 {
+    font-size: 1em;
+}
+
+/* Efek hover/tap pada card lapangan */
+.field-card:hover,
+.field-card:active {
+    border-color: #667eea;
+    transform: translateY(-3px); /* Terangkat */
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+}
+
+/* Style untuk card yang dipilih */
+.field-card.selected {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.1); /* Background ungu tipis */
+}
+
+/* ========================================
+   UPLOADED FILE - Preview file terupload
+   ======================================== */
+.uploaded-file {
+    margin-top: 10px;
+    padding: 12px 15px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Jarak di antara */
+    font-size: 0.9em;
+    word-break: break-all; /* Break long filename */
+}
+
+/* ========================================
+   NOTE - Box catatan penting
+   ======================================== */
+.note {
+    background: #fff3cd; /* Kuning muda */
+    border-left: 4px solid #ffc107; /* Border kiri kuning */
+    padding: 14px;
+    margin: 15px 0;
+    border-radius: 5px;
+    font-size: 0.9em;
+    line-height: 1.6;
+}
+
+/* ========================================
+   RESPONSIVE - Media queries untuk tablet
+   ======================================== */
+@media (min-width: 768px) {
+    /* Tablet dan Desktop */
+    
+    .header h1 {
+        font-size: 2.2em;
+    }
+    
+    .content {
+        padding: 40px;
+    }
+    
+    .time-slots {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+    }
+    
+    .time-slot {
+        padding: 14px;
+        font-size: 1em;
+    }
+    
+    .booking-info {
+        grid-template-columns: repeat(2, 1fr); /* 2 kolom di tablet+ */
+    }
+    
+    .field-icon {
+        font-size: 3em;
+    }
+    
+    .field-card {
+        padding: 20px;
+    }
+    
+    .field-card h3 {
+        font-size: 1.2em;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - Untuk HP sangat kecil
+   ======================================== */
+@media (max-width: 360px) {
+    /* HP kecil seperti iPhone SE */
+    
+    .header h1 {
+        font-size: 1.5em;
+    }
+    
+    .header p {
+        font-size: 0.9em;
+    }
+    
+    .content {
+        padding: 20px 15px;
+    }
+    
+    .time-slots {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        gap: 6px;
+    }
+    
+    .time-slot {
+        padding: 10px 5px;
+        font-size: 0.85em;
+    }
+    
+    .field-card {
+        padding: 12px 8px;
+    }
+    
+    .field-icon {
+        font-size: 2em;
+    }
+    
+    button {
+        font-size: 1em;
+        padding: 14px;
+    }
+}
+
+/* ========================================
+   LANDSCAPE MODE - Untuk HP landscape
+   ======================================== */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 10px;
+    }
+    
+    .header {
+        padding: 20px;
+    }
+    
+    .header h1 {
+        font-size: 1.5em;
+        margin-bottom: 5px;
+    }
+    
+    .content {
+        padding: 20px;
+    }
+}

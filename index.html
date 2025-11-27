@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Lapangan Kampus</title>
+    <!-- Menghubungkan file CSS eksternal -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Container utama untuk seluruh website -->
+    <div class="container">
+        
+        <!-- Bagian header/judul website -->
+        <div class="header">
+            <h1>⚽ Booking Lapangan Kampus</h1>
+            <p>Reservasi Mudah, Cepat & Praktis</p>
+        </div>
+
+        <!-- Bagian konten utama -->
+        <div class="content">
+            
+            <!-- HALAMAN LOGIN -->
+            <div id="loginSection" class="form-section active">
+                <h2 style="margin-bottom: 25px; color: #333;">Login</h2>
+                <!-- Tempat menampilkan pesan alert (error/success) -->
+                <div id="loginAlert"></div>
+                
+                <!-- Form login -->
+                <form id="loginForm">
+                    <!-- Input NPM -->
+                    <div class="form-group">
+                        <label>NPM</label>
+                        <input type="text" id="loginNpm" placeholder="Masukkan NPM" required>
+                    </div>
+                    
+                    <!-- Input Password -->
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="Masukkan Password" required>
+                    </div>
+                    
+                    <!-- Tombol Login -->
+                    <button type="submit">Login</button>
+                    
+                    <!-- Link ke halaman Register -->
+                    <button type="button" class="link-button" onclick="showSection('registerSection')">
+                        Belum punya akun? Daftar
+                    </button>
+                    
+                    <!-- Link ke halaman Lupa Password -->
+                    <button type="button" class="link-button" onclick="showSection('forgotSection')">
+                        Lupa Password?
+                    </button>
+                </form>
+            </div>
+
+            <!-- HALAMAN REGISTER -->
+            <div id="registerSection" class="form-section">
+                <h2 style="margin-bottom: 25px; color: #333;">Daftar Akun</h2>
+                <div id="registerAlert"></div>
+                
+                <form id="registerForm">
+                    <!-- Input Nama Lengkap -->
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" id="regName" placeholder="Masukkan Nama Lengkap" required>
+                    </div>
+                    
+                    <!-- Input NPM -->
+                    <div class="form-group">
+                        <label>NPM</label>
+                        <input type="text" id="regNpm" placeholder="Masukkan NPM" required>
+                    </div>
+                    
+                    <!-- Input Password -->
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="regPassword" placeholder="Minimal 6 karakter" required>
+                    </div>
+                    
+                    <!-- Input Konfirmasi Password -->
+                    <div class="form-group">
+                        <label>Konfirmasi Password</label>
+                        <input type="password" id="regConfirmPassword" placeholder="Ulangi Password" required>
+                    </div>
+                    
+                    <button type="submit">Daftar</button>
+                    <button type="button" class="link-button" onclick="showSection('loginSection')">
+                        Sudah punya akun? Login
+                    </button>
+                </form>
+            </div>
+
+            <!-- HALAMAN LUPA PASSWORD -->
+            <div id="forgotSection" class="form-section">
+                <h2 style="margin-bottom: 25px; color: #333;">Lupa Password</h2>
+                <div id="forgotAlert"></div>
+                
+                <form id="forgotForm">
+                    <!-- Input NPM untuk reset password -->
+                    <div class="form-group">
+                        <label>NPM</label>
+                        <input type="text" id="forgotNpm" placeholder="Masukkan NPM" required>
+                    </div>
+                    
+                    <!-- Input Password Baru -->
+                    <div class="form-group">
+                        <label>Password Baru</label>
+                        <input type="password" id="newPassword" placeholder="Minimal 6 karakter" required>
+                    </div>
+                    
+                    <!-- Konfirmasi Password Baru -->
+                    <div class="form-group">
+                        <label>Konfirmasi Password Baru</label>
+                        <input type="password" id="confirmNewPassword" placeholder="Ulangi Password Baru" required>
+                    </div>
+                    
+                    <button type="submit">Reset Password</button>
+                    <button type="button" class="link-button" onclick="showSection('loginSection')">
+                        Kembali ke Login
+                    </button>
+                </form>
+            </div>
+
+            <!-- HALAMAN BOOKING LAPANGAN -->
+            <div id="bookingSection" class="form-section">
+                <h2 style="margin-bottom: 25px; color: #333;">Booking Lapangan</h2>
+                <div id="bookingAlert"></div>
+                
+                <!-- Input Nama Pemesan -->
+                <div class="form-group">
+                    <label>Nama Pemesan</label>
+                    <input type="text" id="bookingName" placeholder="Nama yang akan dicatat" required>
+                </div>
+
+                <!-- Pilihan Jenis Lapangan -->
+                <div class="form-group">
+                    <label>Pilih Lapangan</label>
+                    <div class="fields-grid">
+                        <!-- Card Futsal -->
+                        <div class="field-card" onclick="selectField('futsal')">
+                            <div class="field-icon">⚽</div>
+                            <h3>Futsal</h3>
+                        </div>
+                        
+                        <!-- Card Voli -->
+                        <div class="field-card" onclick="selectField('voli')">
+                            <div class="field-icon">🏐</div>
+                            <h3>Voli</h3>
+                        </div>
+                        
+                        <!-- Card Basket -->
+                        <div class="field-card" onclick="selectField('basket')">
+                            <div class="field-icon">🏀</div>
+                            <h3>Basket</h3>
+                        </div>
+                        
+                        <!-- Card Badminton -->
+                        <div class="field-card" onclick="selectField('badminton')">
+                            <div class="field-icon">🏸</div>
+                            <h3>Badminton</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Tanggal Booking -->
+                <div class="form-group">
+                    <label>Tanggal Booking</label>
+                    <input type="date" id="bookingDate" required>
+                </div>
+
+                <!-- Pilihan Jam Booking -->
+                <div class="form-group">
+                    <label>Pilih Jam (08.00 - 19.00)</label>
+                    <!-- Container untuk slot waktu (akan diisi otomatis oleh JavaScript) -->
+                    <div class="time-slots" id="timeSlots"></div>
+                </div>
+
+                <!-- Upload KTM/KRS -->
+                <div class="form-group">
+                    <label>Upload KTM/KRS</label>
+                    
+                    <!-- Catatan penting -->
+                    <div class="note">
+                        ⚠️ <strong>Penting:</strong> Foto KTM/KRS wajib dibawa saat check-in
+                    </div>
+                    
+                    <!-- Area upload file -->
+                    <div class="file-upload" onclick="document.getElementById('ktmFile').click()">
+                        <!-- Input file tersembunyi -->
+                        <input type="file" id="ktmFile" accept="image/*" required>
+                        <div class="file-upload-label">
+                            📸 Klik untuk upload foto KTM/KRS
+                        </div>
+                    </div>
+                    
+                    <!-- Tempat preview file yang diupload -->
+                    <div id="filePreview"></div>
+                </div>
+
+                <!-- Tombol Submit Booking -->
+                <button type="button" onclick="submitBooking()">Booking Sekarang</button>
+                
+                <!-- Tombol Logout -->
+                <button type="button" class="link-button" onclick="logout()">Logout</button>
+            </div>
+
+            <!-- HALAMAN SUKSES BOOKING -->
+            <div id="successSection" class="form-section">
+                <!-- Card informasi booking -->
+                <div class="booking-card">
+                    <h2>✅ Booking Berhasil!</h2>
+                    <!-- Detail booking akan ditampilkan di sini -->
+                    <div class="booking-info" id="bookingDetails"></div>
+                </div>
+                
+                <!-- Catatan penting setelah booking -->
+                <div class="note">
+                    <strong>Catatan Penting:</strong><br>
+                    • Harap datang 10 menit sebelum waktu booking<br>
+                    • Wajib membawa KTM/KRS asli untuk check-in<br>
+                    • Booking akan hangus jika terlambat lebih dari 15 menit
+                </div>
+                
+                <!-- Tombol untuk booking lagi -->
+                <button type="button" onclick="showSection('bookingSection')">Booking Lagi</button>
+                <button type="button" class="link-button" onclick="logout()">Logout</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Menghubungkan file JavaScript eksternal -->
+    <script src="script.js"></script>
+</body>
+</html>
