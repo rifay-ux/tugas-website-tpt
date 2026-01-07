@@ -1,14 +1,14 @@
-// Fungsi untuk menyimpan data ke sessionStorage
+// Fungsi untuk menyimpan data ke Local Storage
 // Data diubah ke format JSON agar bisa disimpan sebagai string
 function saveToStorage(key, data) {
-    sessionStorage.setItem(key, JSON.stringify(data));
+    localStorage.setItem(key, JSON.stringify(data));
 }
 
 // Fungsi untuk mengambil data dari sessionStorage
 // Data yang diambil akan dikembalikan ke bentuk semula (object/array)
 // Jika data tidak ditemukan, maka akan mengembalikan nilai null
 function getFromStorage(key) {
-    const data = sessionStorage.getItem(key);
+    const data = localStorage.getItem(key);
     return data ? JSON.parse(data) : null;
 }
 
@@ -406,3 +406,4 @@ document.getElementById('bookingDate').setAttribute('min', today);
 
 // Inisialisasi slot waktu pertama kali
 initTimeSlots();
+
