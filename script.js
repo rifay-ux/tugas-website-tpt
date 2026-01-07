@@ -1,15 +1,26 @@
-/* ========================================
-   VARIABEL GLOBAL - Data yang digunakan di seluruh aplikasi
-   ======================================== */
+// Fungsi untuk menyimpan data ke sessionStorage
+// Data diubah ke format JSON agar bisa disimpan sebagai string
+function saveToStorage(key, data) {
+    sessionStorage.setItem(key, JSON.stringify(data));
+}
 
-// Object untuk menyimpan data user (NPM sebagai key)
-let users = {};
+// Fungsi untuk mengambil data dari sessionStorage
+// Data yang diambil akan dikembalikan ke bentuk semula (object/array)
+// Jika data tidak ditemukan, maka akan mengembalikan nilai null
+function getFromStorage(key) {
+    const data = sessionStorage.getItem(key);
+    return data ? JSON.parse(data) : null;
+}
 
-// Object untuk menyimpan data booking (kombinasi field-date-time sebagai key)
-let bookings = {};
 
-// Menyimpan NPM user yang sedang login
-let currentUser = null;
+// Mengambil data pengguna dari sessionStorage dengan key 'users'
+let users = getFromStorage('users') || {};
+
+// Mengambil data booking dari sessionStorage dengan key 'bookings'
+let bookings = getFromStorage('bookings') || {};
+
+// Mengambil data pengguna yang sedang login dari sessionStorage dengan key 'currentUser'
+let currentUser = getFromStorage('currentUser') || null;
 
 // Menyimpan lapangan yang dipilih user
 let selectedField = null;
@@ -17,10 +28,9 @@ let selectedField = null;
 // Menyimpan jam yang dipilih user
 let selectedTime = null;
 
-/* ========================================
-   FUNGSI: initTimeSlots
-   Membuat slot waktu dari jam 08.00 - 19.00
-   ======================================== */
+//fungsi initTimeSlots
+//membuat slot waktu dari jam 08.00 - 19.00
+  
 function initTimeSlots() {
     // Ambil container untuk slot waktu
     const timeSlotsContainer = document.getElementById('timeSlots');
@@ -28,7 +38,7 @@ function initTimeSlots() {
     // Kosongkan container dulu
     timeSlotsContainer.innerHTML = '';
     
-    // Loop dari jam 8 sampai jam 18 (karena < 19)
+    //loop dari jam 8 sampai jam 18
     for (let hour = 8; hour < 19; hour++) {
         // Buat element div untuk setiap slot waktu
         const timeSlot = document.createElement('div');
@@ -36,14 +46,14 @@ function initTimeSlots() {
         // Tambahkan class 'time-slot'
         timeSlot.className = 'time-slot';
         
-        // Set text jam (misal: "08:00", "09:00")
-        // padStart(2, '0') untuk menambahkan 0 di depan jika < 10
+        // Set text jam 
+        // padStart(2, '0') untuk menambahkan 0 di depan jika < 10 contohnya jam 08:00
         timeSlot.textContent = `${hour.toString().padStart(2, '0')}:00`;
         
         // Set fungsi yang akan dipanggil saat diklik
         timeSlot.onclick = () => selectTimeSlot(hour);
         
-        // Simpan jam di attribute data-hour untuk referensi
+        // Simpan jam di attribute data-hour
         timeSlot.dataset.hour = hour;
         
         // Tambahkan slot ke container
@@ -51,10 +61,7 @@ function initTimeSlots() {
     }
 }
 
-/* ========================================
-   FUNGSI: selectField
-   Dipanggil saat user memilih lapangan
-   ======================================== */
+//fungsi selectField untuk menyimpan data user memilih lapangan 
 function selectField(field) {
     // Simpan pilihan lapangan
     selectedField = field;
@@ -71,10 +78,8 @@ function selectField(field) {
     updateBookedSlots();
 }
 
-/* ========================================
-   FUNGSI: selectTimeSlot
-   Dipanggil saat user memilih jam
-   ======================================== */
+//fungsi selectTimeSlot untuk menyimpan data user memilih jam
+
 function selectTimeSlot(hour) {
     // Ambil element slot yang diklik
     const slot = event.target;
@@ -98,10 +103,7 @@ function selectTimeSlot(hour) {
     slot.classList.add('selected');
 }
 
-/* ========================================
-   FUNGSI: showSection
-   Pindah ke halaman/section tertentu
-   ======================================== */
+//fungsi showSection untuk Pindah halaman
 function showSection(sectionId) {
     // Hilangkan class 'active' dari semua section
     document.querySelectorAll('.form-section').forEach(section => {
@@ -118,10 +120,7 @@ function showSection(sectionId) {
     }
 }
 
-/* ========================================
-   FUNGSI: updateBookedSlots
-   Menandai slot waktu yang sudah dibooking
-   ======================================== */
+//fungsi updateBookedSlots Menandai slot waktu yang sudah dibooking
 function updateBookedSlots() {
     // Ambil tanggal yang dipilih
     const date = document.getElementById('bookingDate').value;
@@ -153,10 +152,8 @@ function updateBookedSlots() {
     }
 }
 
-/* ========================================
-   FUNGSI: showAlert
-   Menampilkan pesan notifikasi (error/success)
-   ======================================== */
+//fungsi showAlert Menampilkan pesan notifikasi (error/success)
+
 function showAlert(elementId, message, type) {
     // Ambil element tempat alert ditampilkan
     const alertDiv = document.getElementById(elementId);
@@ -168,10 +165,7 @@ function showAlert(elementId, message, type) {
     setTimeout(() => alertDiv.innerHTML = '', 3000);
 }
 
-/* ========================================
-   EVENT: Register Form Submit
-   Proses registrasi user baru
-   ======================================== */
+//Register Form Submit Proses registrasi user baru
 document.getElementById('registerForm').addEventListener('submit', function(e) {
     // Cegah form reload halaman
     e.preventDefault();
@@ -182,19 +176,19 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
     const password = document.getElementById('regPassword').value;
     const confirmPassword = document.getElementById('regConfirmPassword').value;
     
-    // VALIDASI 1: Cek apakah NPM sudah terdaftar
+    // Cek apakah NPM sudah terdaftar
     if (users[npm]) {
         showAlert('registerAlert', 'NPM sudah terdaftar!', 'error');
         return;
     }
     
-    // VALIDASI 2: Cek panjang password minimal 6 karakter
+    // Cek panjang password minimal 6 karakter
     if (password.length < 6) {
         showAlert('registerAlert', 'Password minimal 6 karakter!', 'error');
         return;
     }
     
-    // VALIDASI 3: Cek apakah password dan konfirmasi cocok
+    // Cek apakah password dan konfirmasi cocok
     if (password !== confirmPassword) {
         showAlert('registerAlert', 'Password tidak cocok!', 'error');
         return;
@@ -202,6 +196,9 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
     
     // Simpan user baru ke object users
     users[npm] = { name, password };
+
+    //Simpan password dalam object users ke sessionstorage
+    saveToStorage('users', users);
     
     // Tampilkan pesan sukses
     showAlert('registerAlert', 'Registrasi berhasil! Silakan login.', 'success');
@@ -212,10 +209,7 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
     }, 1500);
 });
 
-/* ========================================
-   EVENT: Login Form Submit
-   Proses login user
-   ======================================== */
+// Login Form Submit Proses login user
 document.getElementById('loginForm').addEventListener('submit', function(e) {
     // Cegah form reload halaman
     e.preventDefault();
@@ -224,13 +218,13 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     const npm = document.getElementById('loginNpm').value;
     const password = document.getElementById('loginPassword').value;
     
-    // VALIDASI 1: Cek apakah NPM terdaftar
+    // Cek apakah NPM terdaftar
     if (!users[npm]) {
         showAlert('loginAlert', 'NPM tidak terdaftar!', 'error');
         return;
     }
     
-    // VALIDASI 2: Cek apakah password benar
+    // Cek apakah password benar
     if (users[npm].password !== password) {
         showAlert('loginAlert', 'Password salah!', 'error');
         return;
@@ -238,6 +232,9 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     
     // Set user yang sedang login
     currentUser = npm;
+
+    //Menyimpan Npm ke sessionStorage
+    saveToStorage('currentUser', currentUser);
     
     // Tampilkan pesan sukses
     showAlert('loginAlert', 'Login berhasil!', 'success');
@@ -248,10 +245,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     }, 1000);
 });
 
-/* ========================================
-   EVENT: Forgot Password Form Submit
-   Proses reset password
-   ======================================== */
+//Forgot Password Form Submit Proses reset password
 document.getElementById('forgotForm').addEventListener('submit', function(e) {
     // Cegah form reload halaman
     e.preventDefault();
@@ -261,19 +255,19 @@ document.getElementById('forgotForm').addEventListener('submit', function(e) {
     const newPassword = document.getElementById('newPassword').value;
     const confirmNewPassword = document.getElementById('confirmNewPassword').value;
     
-    // VALIDASI 1: Cek apakah NPM terdaftar
+    // Cek apakah NPM terdaftar
     if (!users[npm]) {
         showAlert('forgotAlert', 'NPM tidak terdaftar!', 'error');
         return;
     }
     
-    // VALIDASI 2: Cek panjang password minimal 6 karakter
+    // Cek panjang password minimal 6 karakter
     if (newPassword.length < 6) {
         showAlert('forgotAlert', 'Password minimal 6 karakter!', 'error');
         return;
     }
     
-    // VALIDASI 3: Cek apakah password baru dan konfirmasi cocok
+    // Cek apakah password baru dan konfirmasi cocok
     if (newPassword !== confirmNewPassword) {
         showAlert('forgotAlert', 'Password tidak cocok!', 'error');
         return;
@@ -281,6 +275,9 @@ document.getElementById('forgotForm').addEventListener('submit', function(e) {
     
     // Update password user
     users[npm].password = newPassword;
+
+    //Menyimpan password baru dengan object users ke sessionstorage
+    saveToStorage('users', users);
     
     // Tampilkan pesan sukses
     showAlert('forgotAlert', 'Password berhasil direset!', 'success');
@@ -291,10 +288,7 @@ document.getElementById('forgotForm').addEventListener('submit', function(e) {
     }, 1500);
 });
 
-/* ========================================
-   EVENT: File Upload Change
-   Preview file yang diupload
-   ======================================== */
+//File Upload Change Preview file yang diupload
 document.getElementById('ktmFile').addEventListener('change', function(e) {
     // Ambil file yang diupload
     const file = e.target.files[0];
@@ -314,19 +308,13 @@ document.getElementById('ktmFile').addEventListener('change', function(e) {
     }
 });
 
-/* ========================================
-   EVENT: Tanggal Booking Change
-   Update slot yang dibooking saat tanggal berubah
-   ======================================== */
+//Tanggal Booking Change Update slot yang dibooking saat tanggal berubah
 document.getElementById('bookingDate').addEventListener('change', function() {
     // Update tampilan slot yang sudah dibooking
     updateBookedSlots();
 });
 
-/* ========================================
-   FUNGSI: submitBooking
-   Proses submit booking lapangan
-   ======================================== */
+//fungsi submitBooking Proses submit booking lapangan
 function submitBooking() {
     // Ambil semua data yang diinput user
     const name = document.getElementById('bookingName').value;
@@ -356,7 +344,9 @@ function submitBooking() {
         time: selectedTime,
         npm: currentUser
     };
-    
+    //menyimpan data booking dalam object bookings ke session storage
+    saveToStorage('bookings', bookings);
+
     // Object untuk nama lapangan yang user-friendly
     const fieldNames = {
         futsal: 'Futsal ⚽',
@@ -397,21 +387,18 @@ function submitBooking() {
     selectedTime = null;
 }
 
-/* ========================================
-   FUNGSI: logout
-   Proses logout user
-   ======================================== */
+
+//Fungsi logout
 function logout() {
     // Hapus data user yang sedang login
     currentUser = null;
     
+    saveToStorage('currentUser', null);
+
     // Kembali ke halaman login
     showSection('loginSection');
 }
 
-/* ========================================
-   INISIALISASI SAAT HALAMAN DIMUAT
-   ======================================== */
 
 // Set tanggal minimal adalah hari ini (tidak bisa booking tanggal lampau)
 const today = new Date().toISOString().split('T')[0];
